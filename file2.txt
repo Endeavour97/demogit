@@ -1,2 +1,6 @@
 Demo file
+<<<<<<< HEAD
 Another line added
+=======
+Adding another line
+>>>>>>> d18cfa399098e422fd9fbe380c46b289e8331585
