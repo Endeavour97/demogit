@@ -1,3 +1,21 @@
+[ubuntu]
+13.234.117.189 
+#ansible_user=ansadmin 
+
+[centos]
+65.2.129.204 
+#ansible_user=ansadmin
+
+[ubuntu:vars]
+ansible_user=ansadmin
+
+[centos:vars]
+ansible_user=ansadmin
+
+
+
+
+
 # This is the default ansible 'hosts' file.
 #
 # It should live in /etc/ansible/hosts
@@ -41,7 +59,3 @@
 # leading 0s:
 
 #db-[99:101]-node.example.com
-
-15.206.169.86
-3.108.55.56
-65.0.107.179
