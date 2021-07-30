@@ -1,0 +1,19 @@
+---
+
+ - hosts: centos
+   gather_facts: false
+   vars:
+     motd: "Welcome to CentOS Linux"
+ 
+   tasks:
+     - name: Configure a MOTD (message of the day)
+       copy:
+         content: "{{ motd }}"
+         dest: /home/ansadmin/motd
+       notify: motd_changed
+   
+   handlers:
+     - name: motd_changed
+       debug:
+         msg: The motd was changed
+
