@@ -1,0 +1,20 @@
+---
+
+ - hosts: ubuntu
+   gather_facts: true
+   become: true
+
+   tasks:
+     - name: Copying 60-ansible-motd file
+       copy:
+         src: 60-ansible-motd
+         dest: /etc/update-motd.d/60-ansible-motd
+         mode: preserve
+       notify:
+         changed
+
+   handlers:
+     - name: changed
+       debug:
+         msg: "Change has occured"
+
