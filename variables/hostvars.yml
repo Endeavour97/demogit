@@ -1,0 +1,14 @@
+## To make use of the host vars
+
+---
+
+ - hosts: ubuntu
+   gather_facts: true
+
+   tasks:
+     - name: Test hostvars with an ansible fact and collect ansible_user
+       debug:
+         msg:
+           - "{{ ansible_user }}"
+
+...

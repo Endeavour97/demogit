@@ -1,0 +1,19 @@
+## To prompt input from the user
+
+---
+ - hosts: ubuntu
+   gather_facts: false
+
+# to prompt the data from user, by default private: true (this means the input will not be displayed while typing)
+   vars_prompt:
+     - name: username
+       private: false
+     - name: password
+
+   tasks:
+     - name: test vars_prompt
+       debug:
+         msg: 
+           - "{{ username }}"
+           - "{{ password }}"
+...

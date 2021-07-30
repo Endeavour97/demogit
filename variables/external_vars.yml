@@ -1,0 +1,13 @@
+## This is an variables file defined outside of the main playbook
+
+---
+
+external_example_key: example value
+
+external_dict:
+  dict_key: This is the dictionary value
+
+external_list:
+  - item1
+  - item2
+  - item3
