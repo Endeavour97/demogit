@@ -1,0 +1,38 @@
+---
+
+ - hosts: all
+   tasks:
+#     - name: Set a fact
+#       set_fact:
+#         our_fact: Ansible Rocks!
+#         ansible_distibution: "{{ ansible_distribution | upper }}" 
+
+#     - name: Show custom fact
+#       debug:
+#         var: our_fact
+
+#     - name: Show ansible_distribution
+#       debug:
+#         var: ansible_distribution
+
+      - name: Set out installation variables for CentOS
+        set_fact:
+          webserver_application_port: 80
+          webserver_application_path: /usr/share/nginx/html
+          webserver_application_user: root
+        when: ansible_distribution == 'Amazon'
+
+      - name: Set our installation variable for Ubuntu
+        set_fact:
+          webserver_application_port: 8080
+          webserver_application_path: /var/www/html
+          webserver_application_user: nginx
+        when: ansible_distribution == 'Ubuntu'
+ 
+      - name: Show pre-set distribution based facts
+        debug:
+          msg:
+            - "webserver_application_port: {{ webserver_application_port }}"
+            - "webserver_application_path: {{ webserver_application_path }}"
+            - "webserver_application_user: {{ webserver_application_user }}"
+

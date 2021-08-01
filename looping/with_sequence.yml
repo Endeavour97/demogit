@@ -1,0 +1,9 @@
+---
+
+ - hosts: all
+   tasks:
+     - name: Create sequence directories
+       file:
+         dest: "/home/ansadmin/sequence_{{ item }}"
+         state: directory
+       with_sequence: start=0 end=100 stride=10

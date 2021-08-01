@@ -1,0 +1,15 @@
+## To capture files from the remote host
+
+# Here we will capture the redhat-release file in /etc/ to get the release version
+
+---
+
+ - hosts: all
+   gather_facts: false
+  
+   tasks:
+     - name: Fetch /etc/redhat-release
+       fetch:
+         src: /etc/redhat-release
+         dest: /tmp/redhat-release
+

@@ -1,0 +1,14 @@
+---
+
+ - hosts: all
+   tasks:
+     - name: Create authorised key
+       authorised_key:
+         user: Anuvind
+         key: "{{ item }}"
+       with_files:
+         - /home/learn/.ssh/id_rsa.pub
+        #- custom_key
+
+## It uses the files as a list
+# Passes what the file has into the item

@@ -1,0 +1,21 @@
+## Creates new inventory groups and targets on the fly. i.e, helps us dynamically add hosts to groups
+# Great for when a resource is created during execution and you wish to include it in your playbook execution
+
+# Here we add centos host to new groups and then ping them using the new group name
+
+---
+
+ - hosts: localhost
+
+   tasks:
+     - name: Add centos to adhoc_group
+       add_host:
+         name: 15.206.72.1
+         groups: adhoc_group1, adhoc_group2
+
+ - hosts: adhoc_group1
+   tasks:
+     - name: Ping all in adhoc_group1
+       ping:
+
+...

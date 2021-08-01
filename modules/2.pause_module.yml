@@ -1,0 +1,23 @@
+## Pause a playbook for a set amount of time or until a prompt is acknowledged
+# Can gives seconds or minutes
+# wait_for also used to wait for something. Here the playbook will wait for the webserver to be up and running in port 80
+
+---
+
+ - hosts: all
+   gather_facts: false
+ 
+   tasks:
+#     - name: Pause out playbook for 10 seconds
+#       pause:
+#         seconds: 10
+
+#      - name: Prompt user to verify before continue
+#        pause:
+#          prompt: Please check that the webserver is running, press enter to continue
+
+       - name: Wait for the webserver to be running in port 80
+         wait_for:
+           port: 80
+
+...

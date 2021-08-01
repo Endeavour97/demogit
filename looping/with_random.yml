@@ -1,0 +1,14 @@
+---
+
+ - hosts: all
+   tasks:
+     - name: Create random directory
+       file:
+         dest: "/home/ansadmin/{{ item }}"
+         state: directory
+       with_random_choice:
+         - "google"
+         - "facebook"
+         - "microsoft"
+         - "apple"
+

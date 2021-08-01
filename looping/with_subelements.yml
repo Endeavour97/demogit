@@ -1,0 +1,18 @@
+---
+
+ - hosts: all
+
+   tasks:
+     - name: Creating users
+       user:
+         name: "{{ item.1 }}"
+         comment: "{{ itme.1 | title }} {{item.0.surname }}"
+       with_subelements:
+         - family:
+             surname: Ashok
+             members:
+               - Anuvind
+               - Aravind
+         - members     
+
+...

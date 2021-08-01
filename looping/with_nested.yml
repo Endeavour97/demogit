@@ -1,0 +1,18 @@
+---
+
+  hosts: all
+
+  tasks:
+    - name: Creating user directories
+      file:
+        dest: "/home/{{ item.0 }}/{{ item.1 }}"
+        owner: "{{ item.0 }}"
+        group: "{{ item.0 }}"
+        state: directory
+      with_nested:
+       # For each of the name in this list
+        - [ Anuvind, Aravind, Asokan, Latha ]
+       # Create all these
+        - [ photos, movies, documents ]
+
+...

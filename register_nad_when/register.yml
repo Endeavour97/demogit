@@ -1,0 +1,14 @@
+---
+
+ - hosts: all
+   tasks:
+     - name: Exploring register
+       command: hostname -s
+       register: hostname_output
+ 
+#     - debug:
+#         var: hostname_output
+
+#Only taking the required value from the list
+     - debug:
+         var: hostname_output.stdout 

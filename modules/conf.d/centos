@@ -1,0 +1,5 @@
+## Custom for centos
+
+Host centos
+  User root
+  Port 2222

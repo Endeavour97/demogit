@@ -1,0 +1,20 @@
+---
+
+  hosts: all
+
+  tasks:
+    - name: Creating user directories
+      file:
+        dest: "/home/{{ item.0 }}/{{ item.1 }}"
+        owner: "{{ item.0 }}"
+        group: "{{ item.0 }}"
+        state: directory
+      with_together:
+       # For each of the name in this list
+        - [ Anuvind, Aravind, Asokan, Latha ]
+       # Create the matching ones
+        - [ photos, movies, documents, music ]
+
+# That is, for Anuvind, photos will be created, for Aravind movies will be created and so on
+
+...

@@ -1,0 +1,17 @@
+---
+
+ - hosts: all
+
+   tasks:
+     - name: Configure a MOTD (Message of the day)
+       copy:
+         content: "Welcome to  {{ item }} Linux"
+         dest: /home/ansadmin/motd_new
+       notify: MOTD changed
+       with_items: [ 'Amazon', 'Ubuntu' ]
+       when: ansible_distribution == item
+       
+       handlers:
+     - name: MOTD changed
+       debug:
+         msg: The MOTD was changed

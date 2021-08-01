@@ -1,0 +1,20 @@
+---
+
+ - hosts: all
+
+   tasks:
+     - name: Creating users
+       user:
+         name: "{{ item.key }}"
+         comment: "{{ itme.value }}"
+       with_dict:
+         Anuvind:
+           full_name: Anuvind Ashok
+         Aravind:
+           full_name: Aravind Ashok
+         Asokan:
+           full_name: Asokan C N
+         Latha:
+           full_name: Latha C V
+
+... 

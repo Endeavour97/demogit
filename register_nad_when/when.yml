@@ -1,0 +1,19 @@
+---
+
+ - hosts: all
+   tasks:
+     - name: Usage of when
+       command: hostname -s
+       register: op
+       when: ansible_distribution == "Ubuntu"
+
+## Only prints the output if there is any change     
+     - debug:
+         var: op
+      #when: op.changed
+       when: op is changed
+
+# both the above method is correct
+
+# Can also use - when: op is skipped. This will perform the task only on the skipped hosts
+...

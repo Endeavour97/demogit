@@ -1,0 +1,13 @@
+## Assemble allows configuration files to be broken into segments and concatenated to form a destination file
+## Great to use, when an application or tool, requires its configuration as a single file, but you wish to manage it as separate entities
+
+# Here conf.d contains 2 configuration files. and we are using the assemble module to combine both of them into one config file (sshd_config)
+
+---
+
+ - hosts: localhost
+   tasks:
+     - name: Assemble conf.d to sshd_config
+       assemble:
+         src: conf.d
+         dest: sshd_config

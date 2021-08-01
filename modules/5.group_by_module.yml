@@ -1,0 +1,14 @@
+## Allows us to add a host into groups based on a key that  is derived from the facts
+
+---
+
+ - hosts: all
+   tasks:
+     - name: Create group based on the ansible_distribution
+       group_by:
+         key: "custom_{{ ansible_distribution | lower }}"
+
+ - hosts: custom_amazon
+   tasks:
+     - name: Pinging
+       ping:
