@@ -1,0 +1,17 @@
+## This playbook took 18.347s to complete execution
+
+
+---
+
+ - hosts: all
+   
+   tasks:
+     - name: Task 1
+       command: /bin/sleep 5
+       when: ansible_distribution == 'Amazon'
+     
+     - name: Task 2
+       command: /bin/sleep 5
+       when: ansible_distribution == 'Ubuntu'
+
+...

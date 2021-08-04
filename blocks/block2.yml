@@ -1,0 +1,32 @@
+## Blocks are very usefull for error handling
+
+---
+
+ - hosts: all
+   become: yes
+ 
+   tasks:
+     - name: Install patch and python-dns
+       block:
+         - name: Install patch
+           package:
+             name: patch
+
+         - name: Install python-dns
+           package:
+             name: python-dnspython
+
+       rescue:
+         - name: Rollback patch
+           package:
+             name: patch
+             state: absent
+    
+         - name: Rollback python-dns
+           package:
+             name: python-dnspython
+             state: absent
+
+       always:
+         - debug:
+             msg: This will run anyways

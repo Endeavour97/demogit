@@ -1,0 +1,5 @@
+---
+# defaults file for webapp
+target_dir: /var/www/html
+
+## Note: This path is only valid for Ubuntu and not for Centos. Hence go look into the playbook for jinja2 syntax to provide the path for Centos

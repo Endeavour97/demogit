@@ -1,6 +1,5 @@
 [ubuntu]
-15.207.106.162 
-#ansible_user=ansadmin 
+15.207.106.162
 
 [centos]
 3.109.60.251
@@ -11,7 +10,6 @@ ansible_user=ansadmin
 
 [centos:vars]
 ansible_user=ansadmin
-
 
 
 

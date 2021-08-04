@@ -1,0 +1,11 @@
+---
+
+ - hosts: all
+   become: yes
+ 
+   roles:
+     - nginx
+     - { role: webapp, target_dir: "{%- if ansible_distribution == 'Amazon' -%}/usr/share/nginx/html{%- elif ansible_distribution == 'Ubuntu' -%}/var/www/html{%- endif %}" }
+
+
+ ## This will set the value of 'target_dir' in /default/mail.yml according to the distribution

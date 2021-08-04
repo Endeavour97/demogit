@@ -1,0 +1,7 @@
+
+---
+
+ - import_playbook: 8.imported_playbook.yml
+   when: import_playbook_var is not defined
+
+...

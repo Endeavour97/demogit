@@ -3,7 +3,7 @@
 #ansible_user=ansadmin 
 
 [centos]
-65.1.1.154
+35.154.146.75
 #ansible_user=ansadmin
 
 [ubuntu:vars]

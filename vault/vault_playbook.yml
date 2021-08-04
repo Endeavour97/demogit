@@ -1,0 +1,41 @@
+## Normal encryption
+# ansible-vault encrypt <anything>. eg -> ansible-vault encrypt external_vars.yml (This will encrypt the external_vars.yml file)
+
+## Encrypt a string
+# ansible-vault encrypt_string --name '<key>' '<value>'
+
+## while encrypting mutiple things we can give vault id
+# ansible-vault encrypt --vault-id vars@prompt external_vars.yml  (This will prompt us to enter a password to encrypt the file)
+
+## In a playbook add multiple ecrypted files and while running playbook use them using vault-id
+# ansible-playbook --vault-id vars@prompt --vault-id anothervar@prompt vault_playbook.yml (This will prompt for password for 2 files)
+
+## Can store the password in another file and reference that file to provide password instead of prompting us
+# ansible-playbook --vault-id vars@vars_pass --vault-id anothervar@anothervars_pass vault_playbook.yml  (This will take the password from the file)
+
+## To decrypt
+# ansible-vault decrypt external_vars.yml
+
+## To edit an encrypted file
+# ansible-vault edit external_vars.yml
+
+## To view an encrypted file
+# ansible-vault view external_vars.yml
+
+## To change the encrypted key (password)
+# ansible-vault rekey external_vars.yml
+
+---
+
+ - hosts: ubuntu
+   gather_facts: false
+   vars_files:
+     - external_var.yml
+     - another_external_var.yml 
+
+   tasks:
+     - name: Show External var
+       debug:
+         msg:
+           - "{{ external_var }}"
+           - "{{ another_external_var }}"

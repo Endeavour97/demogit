@@ -1,0 +1,45 @@
+
+---
+
+ - hosts: all
+   become: yes
+   vars_files:
+     - vars/logos.yaml
+
+   tasks:
+     - name: Install nginx
+       package:
+           name: nginx
+           update_cache: true
+           state: latest
+      
+     - name: Restart nginx
+       service:
+           name: nginx
+           state: restarted
+       notify: check_http
+
+     - name: Template index.html-easter_egg.j2 to index.html on target
+       template:
+         src: index.html-easter_egg.j2
+         dest: "{{ nginx_root_location }}/index.html"
+         mode: 0644
+
+     - name: Install unzip
+       package:
+         name: unzip
+         state: latest
+       
+     - name: Unarchive playbook stacker game
+       unarchive:
+         src: playbook_stacker.zip
+         dest: "{{ nginx_root_location }}"
+         mode: 0735
+
+
+   handlers:
+     - name: check_http
+       uri:
+         url: http://{{ ansible_default_ipv4.address }}
+         status_code: 200
+      

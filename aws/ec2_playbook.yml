@@ -1,0 +1,86 @@
+---
+
+ - hosts: localhost
+   connection: local
+   gather_facts: false
+
+   tasks:
+     - name: Create a security group in AWS for SSH access and HTTP
+       ec2_group:
+         name: Ansible
+         description: Ansible Security Group
+         region: ap-south-1
+         rules:
+           - proto: tcp
+             from_port: 80
+             to_port: 80
+             cidr_ip: 0.0.0.0/0
+           - proto: tcp
+             from_port: 22
+             to_port: 22
+             cidr_ip: 0.0.0.0/0
+       tags:
+         - security_group
+
+     - name: Provision a set of instances
+       ec2:
+         key_name: Linux-learn
+         group: Ansible
+         instance_type: t2.micro
+         image: ami-04db49c0fb2215364
+         region: ap-south-1
+         wait: true
+         exact_count: 3
+         count_tag:
+           Name: AnsibleNginxWebservers
+         instance_tags:
+           Name: Ansible
+       register: ec2
+       tags:
+         - create_ec2
+
+     - name: Refresh inventory to ensure new instances exist in inventory
+       meta: refresh_inventory
+       tags:
+         - refresh_inventory
+  
+
+ - hosts: tag_Name_Ansible
+
+   roles:
+     - nginx
+     - { role: webapp, target_dir: /usr/share/nginx/html }
+  
+   tasks:
+     - debug:
+         msg: "Check http://{{ ansible_host }}"
+ 
+     - pause:
+         prompt: "Verify service availability"	
+
+     - name: Remove tagged EC2 instances from security group by setting an empty group
+       ec2:
+         state: running
+         region: "{{ ec2_region }}"
+         instance_ids: "{{ ec2_id }}"
+         group_id: ""
+       delegate_to: localhost
+
+     - name: Terminate EC2 instances
+       ec2:
+         state: absent
+         region: "{{ ec2_region }}"
+         instance_ids: "{{ ec2_id }}"
+         wait: true
+       delegate_to: localhost
+
+ - hosts: localhost
+   connection: local
+   gather_facts: false
+
+   tasks:
+   - name: Remove ansible security group
+     ec2_group:
+       name: ansible
+       region: us-east-1
+       state: absent

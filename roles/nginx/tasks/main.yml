@@ -1,0 +1,14 @@
+---
+# tasks file for nginx
+- name: Install nginx
+  package:
+    name: nginx
+    update_cache: true
+    state: latest
+   
+- name: Restart nginx
+  service:
+    name: nginx
+    state: restarted
+  notify: check_http
+

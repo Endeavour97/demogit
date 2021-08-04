@@ -1,0 +1,30 @@
+## async - wait for the task for 10 seconds
+## poll - poll for the result every <value> seconds
+
+# poll: 0 -> does not wait for the result.. goes to the next task
+
+---
+
+ - hosts: all
+   tasks:
+     - name: Task 1
+       command: /bin/sleep 5
+       when: ansible_distribution == 'Amazon'
+       async: 10
+       poll: 0
+       register: result1
+   
+     - name: Task 2
+       command: /bin/sleep 30
+       when: ansible_distribution == 'Ubuntu'
+       async: 10
+       poll: 0
+       register: result2
+
+     - name: Show registered context
+       debug:
+         var: result1
+
+     - name: Show registered context as jinja2
+       debug:
+         msg: "{{ result1 }}"

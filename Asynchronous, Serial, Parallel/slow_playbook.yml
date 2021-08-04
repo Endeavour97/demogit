@@ -1,0 +1,16 @@
+## This task took 20.662s to complete
+
+# It waits for the task to be completed on all the hosts
+
+---
+
+ - hosts: all
+   tasks:
+     - name: Task 1
+       command: /bin/sleep 5
+
+
+     - name: Task 2
+       command: /bin/sleep 5
+
+...

@@ -1,0 +1,52 @@
+## Tags allows us to run a specific tasks
+# eg: ansible-playbook tags.yml --tags "restart_nginx" -> this will only run the Restart nginx task
+
+## We can skip the tasks using tags
+# ansible-playbook tags.yml --skip-tags "restart_nginx"
+
+## By default all tags belong under all tag
+# ansible-playbook tags.yml --tags all -> This will run all the tasks
+
+## We can provide tags to entire playbooks
+# But doing this may not run the gather_facts as it has an inbuilt tag known as always ( To overcome this we can create an empty play inside a playbook)
+
+## We can provide 'always' tag to certain tasks (same as gather_facts) This will run the task no matter you called the tag or not
+
+### SPECIAL TAGS
+
+## tagged -> ansible-playbook tags.yml --tags "tagged" -> This will run all the tagged tasks/plays
+
+## untagged -> opposite of above
+
+## all -> runs all tasks
+
+---
+
+ - hosts: ubuntu
+   become: yes
+   gather_facts: true 
+ 
+   tasks:
+     - name: Updating cache
+       apt:
+         update_cache: true
+       tags:
+         - cache
+  
+     - name: Install nginx
+       package:
+         name: nginx
+         state: present
+       tags:
+         - install_nginx
+
+     - name: Restart nginx
+       service:
+         name: nginx
+         state: restarted
+       tags:
+         - restart_nginx
+     
+     - debug:
+         msg: Tasks Ended
+
