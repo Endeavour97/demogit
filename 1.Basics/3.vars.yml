@@ -1,0 +1,93 @@
+---
+
+## Define vars normally
+ - name: Play to show normal variables
+   hosts: localhost
+   gather_facts: false
+
+   vars:
+     a: 10
+     b: Hello World!
+     c:
+       - 20
+       - Anuvind
+     d:
+       - {x:1}
+       - {y:2}
+
+   tasks:
+     - name: Show normal variables
+       debug:
+         msg:
+           - "{{a}}"
+           - "{{b}}"
+           - "{{c}}"
+           - "{{d}}"
+     
+
+# Define variables in an external file and access using vars_files
+ - name: Play to show external variables
+   hosts: localhost
+   gather_facts: false
+
+   vars_files:
+     - external_vars.yml
+    
+   tasks:
+     - name: Test external key value
+       debug:
+         msg: "{{ external_example_key }}"
+
+     - name: Test external dictionary
+       debug:
+         msg: "{{ external_dict }}"
+    
+     - name: Test external dict value calling using dot and bracket notation
+       debug:
+         msg:
+           - "{{ external_dict.dict_key }}"
+           - "{{ external_dict['dict_key'] }}"
+
+     - name: Test external list
+       debug:
+         msg: "{{ external_list }}"
+
+     - name: Test external list, accessing values in list using dot and bracket notation
+       debug:
+         msg:
+           - "{{ external_list.0 }}"
+           - "{{ external_list[0] }}"
+
+
+## Access vars that are defined in the hosts files to respective hosts
+     
+ - name: Play to show hostvars
+   hosts: ubuntu
+   gather_facts: false
+
+   tasks:
+     - name: Test hostvars with an ansible fact and collect ansible_user
+       debug:
+         msg:
+           - "{{ ansible_user }}"
+           #- "{{ ansible_port | default('22') }}"
+
+
+# to prompt the data from user, by default private: true (this means the input will not be displayed while typing)
+
+ - name: Play to show prompted vars
+   hosts: localhost
+   gather_facts: false
+
+
+   vars_prompt:
+     - name: username
+       private: false
+     - name: password
+
+   tasks:
+     - name: test vars_prompt
+       debug:
+         msg: 
+           - "{{ username }}"
+           - "{{ password }}"

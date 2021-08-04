@@ -1,5 +1,6 @@
 ---
 
+## It registers the output of the task done
  - hosts: all
    tasks:
      - name: Exploring register
